@@ -11,7 +11,6 @@ class SongEntity(
     @ManyToOne @JoinColumn(name = "singer_id")
     val singer: SingerEntity?,
     val originalTitle: String?,
-    val lyrics: String?,
     val youtubeUrl: String?,
     val albumImg: String?,
     val ky: Int?,
