@@ -1,0 +1,40 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    env_file:
+      - mysql.env
+    volumes:
+      - server-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+    networks:
+      - server-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "8080:8080"
+    networks:
+      - server-network
+
+networks:
+  server-network:
+    driver: bridge
+
+volumes:
+  server-data:
