@@ -1,22 +1,23 @@
 package com.yeoff.jpopkaraokeserver.domain.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 
 @Entity
 @Table(name = "song")
 class SongEntity(
     val title: String?,
-    val singer: String?,
+    @ManyToOne @JoinColumn(name = "singer_id")
+    val singer: SingerEntity?,
     val originalTitle: String?,
     val lyrics: String?,
     val youtubeUrl: String?,
     val albumImg: String?,
     val ky: Int?,
     val tj: Int?,
-    val keyword: String?
+    @Column(columnDefinition = "JSON") @JdbcTypeCode(SqlTypes.JSON)
+    val keyword: List<String>?
 ) {
     @Id @GeneratedValue val id: Long? = null
 }
