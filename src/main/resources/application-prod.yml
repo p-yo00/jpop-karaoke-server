@@ -11,3 +11,5 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+
+IMAGE_SERVER: http://nginx
