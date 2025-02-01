@@ -1,4 +1,4 @@
-package com.yeoff.jpopkaraokeserver.domain.dto
+package com.yeoff.jpopkaraokeserver.domain.dto.common
 
 import com.yeoff.jpopkaraokeserver.domain.constant.SuccessCode
 

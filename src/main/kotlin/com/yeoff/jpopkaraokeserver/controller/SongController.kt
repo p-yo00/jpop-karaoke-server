@@ -2,7 +2,7 @@ package com.yeoff.jpopkaraokeserver.controller
 
 import com.yeoff.jpopkaraokeserver.domain.dto.SongDetailRespDto
 import com.yeoff.jpopkaraokeserver.domain.dto.SongListRespDto
-import com.yeoff.jpopkaraokeserver.domain.dto.SuccessRespDto
+import com.yeoff.jpopkaraokeserver.domain.dto.common.SuccessRespDto
 import com.yeoff.jpopkaraokeserver.service.SongService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
