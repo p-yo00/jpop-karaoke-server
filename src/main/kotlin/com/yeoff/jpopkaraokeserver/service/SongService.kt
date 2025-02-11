@@ -21,18 +21,7 @@ class SongService(
     fun getJpopChart100(): SuccessRespDto<List<SongListRespDto>> {
         return SuccessRespDto(
             successCode = SuccessCode.OK,
-            data = songRepository.findAll()
-                .map {
-                    SongListRespDto(
-                        id = it.id,
-                        title = it.title,
-                        singer = it.singer?.name,
-                        originalTitle = it.originalTitle,
-                        albumImg = imageServerDomain + it.albumImg,
-                        ky = it.ky,
-                        tj = it.tj
-                    )
-                }
+            data = songTop100Repository.findAll().map { SongListRespDto.from(it) }
         )
     }
 
@@ -40,28 +29,11 @@ class SongService(
         val songEntity: SongEntity? = songRepository.findById(songId).getOrNull()
         checkNotNull(songEntity) { throw JpopException(FailCode.SONG_NOT_FOUND) }
 
-        val lyricsList: List<SongDetailRespDto.LyricsUnit> =
-            lyricsRepository.findBySong_IdOrderBySequence(songId)
-                .map {
-                    SongDetailRespDto.LyricsUnit(
-                        kor = it.kor,
-                        jpn = it.jpn,
-                        rom = it.rom
-                    )
-                }
-
         return SuccessRespDto(
             successCode = SuccessCode.OK,
-            data = SongDetailRespDto(
-                id = songEntity.id,
-                title = songEntity.title,
-                singer = songEntity.singer?.name,
-                originalTitle = songEntity.originalTitle,
-                albumImg = imageServerDomain + songEntity.albumImg,
-                youtubeUrl = songEntity.youtubeUrl,
-                ky = songEntity.ky,
-                tj = songEntity.tj,
-                lyrics = lyricsList
+            data = SongDetailRespDto.of(
+                songEntity,
+                lyricsEntityList = lyricsRepository.findBySong_IdOrderBySequence(songId)
             )
         )
     }
