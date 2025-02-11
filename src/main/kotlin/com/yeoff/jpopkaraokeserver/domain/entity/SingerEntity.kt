@@ -4,6 +4,8 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.type.SqlTypes
@@ -17,5 +19,8 @@ class SingerEntity(
     @Column(columnDefinition = "JSON") @JdbcTypeCode(SqlTypes.JSON)
     val keyword: ArrayList<String>?
 ) {
-    @Id @GeneratedValue val id: Long? = null
+    @Id @GeneratedValue
+    val id: Long = -1
+    @OneToMany @JoinColumn(name = "singer_id")
+    val songList: List<SongEntity> = ArrayList()
 }

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository
 @Repository
 interface SongRepository : JpaRepository<SongEntity, Long> {
 
+    fun findBySinger_Id(singerId: Long, pageable: Pageable): Page<SongEntity>
+
     @Query("SELECT song.* " +
             "FROM song " +
             "JOIN singer ON song.singer_id = singer.id " +
