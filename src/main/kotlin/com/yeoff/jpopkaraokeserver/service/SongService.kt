@@ -9,7 +9,7 @@ import com.yeoff.jpopkaraokeserver.domain.dto.common.SuccessRespDto
 import com.yeoff.jpopkaraokeserver.domain.entity.SongEntity
 import com.yeoff.jpopkaraokeserver.repository.LyricsRepository
 import com.yeoff.jpopkaraokeserver.repository.SongRepository
-import org.springframework.beans.factory.annotation.Value
+import com.yeoff.jpopkaraokeserver.repository.SongTop100Repository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -18,7 +18,8 @@ import kotlin.jvm.optionals.getOrNull
 @Service
 class SongService(
     private val songRepository: SongRepository,
-    private val lyricsRepository: LyricsRepository
+    private val lyricsRepository: LyricsRepository,
+    private val songTop100Repository: SongTop100Repository
 ) {
     fun getJpopChart100(): SuccessRespDto<List<SongListRespDto>> {
         return SuccessRespDto(
