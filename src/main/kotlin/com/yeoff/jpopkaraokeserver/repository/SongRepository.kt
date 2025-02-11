@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
 @Repository
-interface SongRepository : JpaRepository<SongEntity, Long>
 interface SongRepository : JpaRepository<SongEntity, Long> {
 
     @Query("SELECT song.* " +
