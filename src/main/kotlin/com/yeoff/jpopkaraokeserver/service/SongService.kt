@@ -15,8 +15,6 @@ import kotlin.jvm.optionals.getOrNull
 
 @Service
 class SongService(
-    @Value("\${IMAGE_SERVER}")
-    private val imageServerDomain: String,
     private val songRepository: SongRepository,
     private val lyricsRepository: LyricsRepository
 ) {
