@@ -4,9 +4,12 @@ import com.yeoff.jpopkaraokeserver.domain.dto.SongDetailRespDto
 import com.yeoff.jpopkaraokeserver.domain.dto.SongListRespDto
 import com.yeoff.jpopkaraokeserver.domain.dto.common.SuccessRespDto
 import com.yeoff.jpopkaraokeserver.service.SongService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -20,5 +23,12 @@ class SongController(val songService: SongService) {
     @GetMapping("/song/{songId}")
     fun getSongDetail(@PathVariable("songId") songId: Long): ResponseEntity<SuccessRespDto<SongDetailRespDto>> {
         return ResponseEntity.ok(songService.getSongDetail(songId))
+    }
+
+    @GetMapping("/song")
+    fun getSongSearch(@RequestParam("q") query: String,
+                      pageable: Pageable
+    ): ResponseEntity<SuccessRespDto<Page<SongListRespDto>>> {
+        return ResponseEntity.ok(songService.getSongSearch(query, pageable))
     }
 }
