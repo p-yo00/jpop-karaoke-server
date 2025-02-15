@@ -10,8 +10,6 @@ import com.yeoff.jpopkaraokeserver.domain.entity.SongEntity
 import com.yeoff.jpopkaraokeserver.repository.LyricsRepository
 import com.yeoff.jpopkaraokeserver.repository.SongRepository
 import com.yeoff.jpopkaraokeserver.repository.SongTop100Repository
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import kotlin.jvm.optionals.getOrNull
 
@@ -41,10 +39,10 @@ class SongService(
         )
     }
 
-    fun getSongSearch(keyword: String, pageable: Pageable): SuccessRespDto<Page<SongListRespDto>>? {
+    fun getSongSearch(keyword: String): SuccessRespDto<List<SongListRespDto>>? {
         return SuccessRespDto(
             successCode = SuccessCode.OK,
-            data = songRepository.findByKeyword(keyword, pageable)
+            data = songRepository.findByKeyword(keyword)
                 .map { SongListRespDto.from(it) }
         )
     }
