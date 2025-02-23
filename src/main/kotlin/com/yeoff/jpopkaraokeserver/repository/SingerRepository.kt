@@ -1,5 +1,6 @@
 package com.yeoff.jpopkaraokeserver.repository
 
+import com.yeoff.jpopkaraokeserver.domain.dto.SingerListRespDto
 import com.yeoff.jpopkaraokeserver.domain.entity.SingerEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
@@ -7,8 +8,11 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface SingerRepository : JpaRepository<SingerEntity, Long> {
-    @Query("SELECT singer " +
+    @Query("SELECT new com.yeoff.jpopkaraokeserver.domain.dto.SingerListRespDto(singer, count(*)) " +
             "FROM SingerEntity singer " +
-            "ORDER BY SIZE(singer.songList) DESC")
-    fun findOrderBySongCount(): List<SingerEntity>
+            "JOIN FETCH SongEntity song ON singer.id = song.singer.id " +
+            "GROUP BY singer.id " +
+            "HAVING count(*) > 1"+
+            "ORDER BY count(*) DESC")
+    fun findOrderBySongCount(): List<SingerListRespDto>
 }

@@ -8,14 +8,24 @@ class SingerListRespDto(
     var name: String,
     var originalName: String?,
     var profileImg: String?,
+    var songCount: Int?
 ) {
+    constructor(singerEntity: SingerEntity, songCount: Long): this(
+        id = singerEntity.id,
+        name = singerEntity.name!!,
+        originalName = singerEntity.originalName,
+        profileImg = FileUtil.getImageUrl(singerEntity.profileImg),
+        songCount = songCount.toInt()
+    )
+
     companion object {
         fun from(singerEntity: SingerEntity): SingerListRespDto {
             return SingerListRespDto(
                 id = singerEntity.id,
                 name = singerEntity.name!!,
                 originalName = singerEntity.originalName,
-                profileImg = FileUtil.getImageUrl(singerEntity.profileImg)
+                profileImg = FileUtil.getImageUrl(singerEntity.profileImg),
+                songCount = singerEntity.songList.size
             )
         }
     }
