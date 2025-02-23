@@ -22,7 +22,7 @@ class SongService(
     fun getJpopChart100(): SuccessRespDto<List<SongListRespDto>> {
         return SuccessRespDto(
             successCode = SuccessCode.OK,
-            data = songTop100Repository.findAll().map { SongListRespDto.from(it) }
+            data = songTop100Repository.findTop100().map { SongListRespDto.from(it) }
         )
     }
 
