@@ -4,6 +4,7 @@ import com.yeoff.jpopkaraokeserver.domain.dto.SongDetailRespDto
 import com.yeoff.jpopkaraokeserver.domain.dto.SongListRespDto
 import com.yeoff.jpopkaraokeserver.domain.dto.common.SuccessRespDto
 import com.yeoff.jpopkaraokeserver.service.SongService
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController
 class SongController(val songService: SongService) {
 
     @GetMapping("/song/chart100")
-    fun getJpopChart100(): ResponseEntity<SuccessRespDto<List<SongListRespDto>>> {
-        return ResponseEntity.ok(songService.getJpopChart100())
+    fun getJpopChart100(pageable: Pageable): ResponseEntity<SuccessRespDto<List<SongListRespDto>>> {
+        return ResponseEntity.ok(songService.getJpopChart100(pageable))
     }
 
     @GetMapping("/song/{songId}")
@@ -24,7 +25,7 @@ class SongController(val songService: SongService) {
     }
 
     @GetMapping("/song")
-    fun getSongSearch(@RequestParam("q") query: String): ResponseEntity<SuccessRespDto<List<SongListRespDto>>> {
-        return ResponseEntity.ok(songService.getSongSearch(query))
+    fun getSongSearch(@RequestParam("q") query: String, pageable: Pageable): ResponseEntity<SuccessRespDto<List<SongListRespDto>>> {
+        return ResponseEntity.ok(songService.getSongSearch(query, pageable))
     }
 }

@@ -2,6 +2,7 @@ package com.yeoff.jpopkaraokeserver.repository
 
 import com.yeoff.jpopkaraokeserver.domain.dto.SingerListRespDto
 import com.yeoff.jpopkaraokeserver.domain.entity.SingerEntity
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
@@ -14,5 +15,5 @@ interface SingerRepository : JpaRepository<SingerEntity, Long> {
             "GROUP BY singer.id " +
             "HAVING count(*) > 1"+
             "ORDER BY count(*) DESC")
-    fun findOrderBySongCount(): List<SingerListRespDto>
+    fun findOrderBySongCount(pageable: Pageable): List<SingerListRespDto>
 }

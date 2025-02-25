@@ -1,6 +1,7 @@
 package com.yeoff.jpopkaraokeserver.repository
 
 import com.yeoff.jpopkaraokeserver.domain.entity.SongEntity
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface SongRepository : JpaRepository<SongEntity, Long> {
 
-    fun findBySinger_Id(singerId: Long): List<SongEntity>
+    fun findBySinger_Id(singerId: Long, pageable: Pageable): List<SongEntity>
 
     @Query("SELECT song.* " +
             "FROM song " +
@@ -19,5 +20,5 @@ interface SongRepository : JpaRepository<SongEntity, Long> {
             "OR JSON_SEARCH(song.keyword, 'all', CONCAT('%', :keyword, '%')) " +
             "OR JSON_SEARCH(singer.keyword, 'all', CONCAT('%', :keyword, '%'))"
         , nativeQuery = true)
-    fun findByKeyword(@Param("keyword") keyword: String): List<SongEntity>
+    fun findByKeyword(@Param("keyword") keyword: String, pageable: Pageable): List<SongEntity>
 }
