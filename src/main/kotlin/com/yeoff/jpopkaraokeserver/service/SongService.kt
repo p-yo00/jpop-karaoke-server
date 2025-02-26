@@ -21,9 +21,13 @@ class SongService(
     private val songTop100Repository: SongTop100Repository
 ) {
     fun getJpopChart100(pageable: Pageable): SuccessRespDto<List<SongListRespDto>> {
+        println(pageable.isUnpaged)
         return SuccessRespDto(
             successCode = SuccessCode.OK,
-            data = songTop100Repository.findTop100(pageable).map { SongListRespDto.from(it) }
+            data = songTop100Repository.findTop100(
+                if(pageable.isUnpaged) Pageable.unpaged()
+                else pageable
+            ).map { SongListRespDto.from(it) }
         )
     }
 
