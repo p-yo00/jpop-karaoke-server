@@ -8,15 +8,29 @@ import org.hibernate.type.SqlTypes
 @Table(name = "song_top100")
 class SongTop100Entity(
     val title: String?,
-    @ManyToOne @JoinColumn(name = "singer_id")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "singer_id")
     val singer: SingerEntity?,
+
     val originalTitle: String?,
+
     val youtubeUrl: String?,
+
     val albumImg: String?,
+
     val ky: Int?,
+
     val tj: Int?,
+
     @Column(columnDefinition = "JSON") @JdbcTypeCode(SqlTypes.JSON)
-    val keyword: List<String>?
+    val keyword: List<String>?,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "song_id")
+    val song: SongEntity?,
+
+    val chartRank: Short?,
 ) {
     @Id @GeneratedValue val id: Long? = null
 }

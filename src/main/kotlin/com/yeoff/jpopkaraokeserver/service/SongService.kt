@@ -9,7 +9,6 @@ import com.yeoff.jpopkaraokeserver.domain.dto.common.SuccessRespDto
 import com.yeoff.jpopkaraokeserver.domain.entity.SongEntity
 import com.yeoff.jpopkaraokeserver.repository.LyricsRepository
 import com.yeoff.jpopkaraokeserver.repository.SongRepository
-import com.yeoff.jpopkaraokeserver.repository.SongTop100Repository
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import kotlin.jvm.optionals.getOrNull
@@ -17,14 +16,13 @@ import kotlin.jvm.optionals.getOrNull
 @Service
 class SongService(
     private val songRepository: SongRepository,
-    private val lyricsRepository: LyricsRepository,
-    private val songTop100Repository: SongTop100Repository
+    private val lyricsRepository: LyricsRepository
 ) {
     fun getJpopChart100(pageable: Pageable): SuccessRespDto<List<SongListRespDto>> {
         println(pageable.isUnpaged)
         return SuccessRespDto(
             successCode = SuccessCode.OK,
-            data = songTop100Repository.findTop100(
+            data = songRepository.findTop100Songs(
                 if(pageable.isUnpaged) Pageable.unpaged()
                 else pageable
             ).map { SongListRespDto.from(it) }
