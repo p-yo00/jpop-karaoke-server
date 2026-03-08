@@ -5,6 +5,7 @@ import com.yeoff.jpopkaraokeserver.domain.dto.SongListRespDto
 import com.yeoff.jpopkaraokeserver.domain.dto.common.SuccessRespDto
 import com.yeoff.jpopkaraokeserver.service.SongService
 import com.yeoff.jpopkaraokeserver.util.PageUtil
+import org.apache.tomcat.util.http.ResponseUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -30,5 +31,10 @@ class SongController(val songService: SongService) {
                       @RequestParam(required = false) page: Int?,
                       @RequestParam(required = false) size: Int?): ResponseEntity<SuccessRespDto<List<SongListRespDto>>> {
         return ResponseEntity.ok(songService.getSongSearch(query, PageUtil.page(page, size)))
+    }
+
+    @GetMapping("/health")
+    fun healthCheck(): ResponseEntity<SuccessRespDto<Void>> {
+        return ResponseEntity.ok().body(null);
     }
 }
