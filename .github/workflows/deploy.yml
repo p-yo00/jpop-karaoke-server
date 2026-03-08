@@ -9,6 +9,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ vars.DOCKERHUB_USERNAME }} --password-stdin
+        
+      - uses: actions/checkout@v4
+      - name: Build the Docker image
+      run: |
+          docker build . --file Dockerfile --tag yeon00/jpop-karaoke-server:${GITHUB_SHA}
+          docker push yeon00/jpop-karaoke-server:${GITHUB_SHA}
+
+    steps:
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -19,4 +29,4 @@ jobs:
             cd /home/ubuntu/jpop-karaoke-server
             git pull
             sudo docker compose down
-            sudo docker compose up -d --build
+            sudo docker compose up -d --remove-orphans
