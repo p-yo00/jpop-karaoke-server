@@ -17,7 +17,6 @@ services:
       - server-network
 
   api:
-    build: .
     image: yeon00/jpop-karaoke-server:latest
     container_name: api
     depends_on:
