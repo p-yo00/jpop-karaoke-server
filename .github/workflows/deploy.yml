@@ -15,8 +15,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build the Docker image
         run: |
-            docker build . --file Dockerfile --tag yeon00/jpop-karaoke-server:${GITHUB_SHA}
-            docker push yeon00/jpop-karaoke-server:${GITHUB_SHA}
+            docker build . --file Dockerfile \
+                    --tag yeon00/jpop-karaoke-server:${GITHUB_SHA::7} \
+                    --tag yeon00/jpop-karaoke-server:latest
+            docker push yeon00/jpop-karaoke-server:${GITHUB_SHA::7}
+            docker push yeon00/jpop-karaoke-server:latest
             
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
