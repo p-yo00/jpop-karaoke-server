@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${PROD.DB.URL}
-    username: ${PROD.DB.USERNAME}
-    password: ${PROD.DB.PASSWORD}
+    url: jdbc:mysql://mysql:3306/jpop_karaoke
+    username: root
+    password: JpopSecretDB1@
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

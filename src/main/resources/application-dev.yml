@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url: ${DEV.DB.URL}
-    username: ${DEV.DB.USERNAME}
-    password: ${DEV.DB.PASSWORD}
+    url: jdbc:mysql://mysql:3306/jpop_karaoke
+    username: root
+    password: JpopSecretDB1@
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
