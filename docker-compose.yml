@@ -17,9 +17,8 @@ services:
       - server-network
 
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    image: yeon00/jpop-karaoke-server:latest
     container_name: api
     depends_on:
       mysql:
