@@ -8,23 +8,27 @@ import jakarta.persistence.Table
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "suggestion")
-class SuggestionEntity {
+@Table(name = "event")
+class EventEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    var content: String? = null
+    var eventType: String? = null
 
-    val writeDatetime: LocalDateTime = LocalDateTime.now()
+    var payload: String? = null
+
+    val eventDateTime: LocalDateTime = LocalDateTime.now()
+
 
     companion object {
-        fun create(content: String): SuggestionEntity {
-            val suggestion = SuggestionEntity()
-            suggestion.content = content
+        fun create(eventType: String, payload: String): EventEntity {
+            val event = EventEntity()
+            event.eventType = eventType
+            event.payload = payload
 
-            return suggestion
+            return event
         }
     }
 }
