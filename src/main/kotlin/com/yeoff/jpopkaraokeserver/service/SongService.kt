@@ -52,7 +52,7 @@ class SongService(
 
         return SuccessRespDto(
             successCode = SuccessCode.OK,
-            data = songRepository.findByKeyword(keyword, pageable)
+            data = songRepository.findByKeyword(keyword.lowercase(), pageable)
                 .map { SongListRespDto.from(it) }
         )
     }
