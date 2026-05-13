@@ -14,8 +14,9 @@ class EventService(
     val objectMapper: ObjectMapper
 ) {
 
-    private fun issueEvent(eventType: String, payload: String) {
-        val event = EventEntity.create(eventType, payload)
+    fun issueEvent(eventType: String, payload: Any) {
+        val event = EventEntity.create(eventType,
+            objectMapper.writeValueAsString(payload))
         eventRepository.save(event)
     }
 
@@ -29,7 +30,7 @@ class EventService(
 
         issueEvent(
             EventType.SEARCH.name,
-            objectMapper.writeValueAsString(payload))
+            payload)
     }
 
     data class SearchData(val keyword: String, val size: Int, val songIds: List<Long>)
