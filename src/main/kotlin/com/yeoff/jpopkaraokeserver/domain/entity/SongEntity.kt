@@ -17,6 +17,10 @@ class SongEntity {
     @JoinColumn(name = "singer_id")
     val singer: SingerEntity? = null
 
+    @ManyToOne
+    @JoinColumn(name = "feat_singer_id")
+    val featSinger: SingerEntity? = null
+
     val title: String? = null
     val originalTitle: String? = null
 
@@ -31,4 +35,9 @@ class SongEntity {
     @Column(columnDefinition = "JSON")
     @JdbcTypeCode(SqlTypes.JSON)
     val keyword: List<String> = ArrayList()
+
+    fun concatSinger(): String? {
+        featSinger?.let { return singer?.name + " (feat." + it.name + ")" }
+        return singer?.name
+    }
 }

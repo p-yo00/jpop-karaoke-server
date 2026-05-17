@@ -19,7 +19,7 @@ class SongListRespDto(
             return SongListRespDto(
                 id = songEntity.id,
                 title = songEntity.title,
-                singer = songEntity.singer?.name,
+                singer = songEntity.concatSinger(),
                 originalTitle = songEntity.originalTitle,
                 albumImg =  FileUtil.getImageUrl(songEntity.albumImg),
                 ky = songEntity.ky,

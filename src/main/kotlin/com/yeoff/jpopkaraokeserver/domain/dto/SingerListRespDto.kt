@@ -1,6 +1,6 @@
 package com.yeoff.jpopkaraokeserver.domain.dto
 
-import com.yeoff.jpopkaraokeserver.domain.entity.SingerEntity
+import com.yeoff.jpopkaraokeserver.repository.projection.SingerListProjection
 import com.yeoff.jpopkaraokeserver.util.FileUtil
 
 class SingerListRespDto(
@@ -10,22 +10,14 @@ class SingerListRespDto(
     var profileImg: String?,
     var songCount: Int?
 ) {
-    constructor(singerEntity: SingerEntity, songCount: Long): this(
-        id = singerEntity.id,
-        name = singerEntity.name!!,
-        originalName = singerEntity.originalName,
-        profileImg = FileUtil.getImageUrl(singerEntity.profileImg),
-        songCount = songCount.toInt()
-    )
-
     companion object {
-        fun from(singerEntity: SingerEntity): SingerListRespDto {
+        fun from(projection: SingerListProjection): SingerListRespDto {
             return SingerListRespDto(
-                id = singerEntity.id,
-                name = singerEntity.name!!,
-                originalName = singerEntity.originalName,
-                profileImg = FileUtil.getImageUrl(singerEntity.profileImg),
-                songCount = singerEntity.songList.size
+                id = projection.getId(),
+                name = projection.getName(),
+                originalName = projection.getOriginalName(),
+                profileImg = FileUtil.getImageUrl(projection.getProfileImg()),
+                songCount = projection.getSongCount().toInt()
             )
         }
     }

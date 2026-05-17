@@ -6,6 +6,7 @@ import com.yeoff.jpopkaraokeserver.domain.dto.SongListRespDto
 import com.yeoff.jpopkaraokeserver.domain.dto.common.SuccessRespDto
 import com.yeoff.jpopkaraokeserver.repository.SingerRepository
 import com.yeoff.jpopkaraokeserver.repository.SongRepository
+import com.yeoff.jpopkaraokeserver.repository.projection.SingerListProjection
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
@@ -15,18 +16,20 @@ class SingerService(
     private val songRepository: SongRepository
 ) {
     fun getSingerList(pageable: Pageable): SuccessRespDto<List<SingerListRespDto>> {
-        val singerPage: List<SingerListRespDto> = singerRepository.findOrderBySongCount(pageable)
+        val projections: List<SingerListProjection> = singerRepository.findOrderBySongCount(pageable)
 
         return SuccessRespDto(
             successCode = SuccessCode.OK,
-            data = singerPage
+            data = projections.stream()
+                .map { SingerListRespDto.from(it) }
+                .toList()
         )
     }
 
     fun getSingerSongList(singerId: Long, pageable: Pageable): SuccessRespDto<List<SongListRespDto>> {
         return SuccessRespDto(
             successCode = SuccessCode.OK,
-            data = songRepository.findBySinger_Id(singerId, pageable)
+            data = songRepository.findBySingerId(singerId, pageable)
                 .map { SongListRespDto.from(it) }
         )
     }
