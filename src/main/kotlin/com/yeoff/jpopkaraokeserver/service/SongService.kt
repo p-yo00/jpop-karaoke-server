@@ -9,10 +9,8 @@ import com.yeoff.jpopkaraokeserver.domain.dto.common.SuccessRespDto
 import com.yeoff.jpopkaraokeserver.domain.entity.SongEntity
 import com.yeoff.jpopkaraokeserver.repository.LyricsRepository
 import com.yeoff.jpopkaraokeserver.repository.SongRepository
-import lombok.extern.slf4j.Slf4j
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.lang.Math.log
 import kotlin.jvm.optionals.getOrNull
 
 @Service
