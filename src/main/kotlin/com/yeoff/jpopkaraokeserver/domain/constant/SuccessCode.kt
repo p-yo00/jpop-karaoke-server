@@ -6,6 +6,5 @@ enum class SuccessCode(
     var code: String,
     var httpStatus: HttpStatus
 ) {
-    OK("OK", HttpStatus.OK),
-    CREATED("CREATED", HttpStatus.CREATED),
+    OK("OK", HttpStatus.OK)
 }
