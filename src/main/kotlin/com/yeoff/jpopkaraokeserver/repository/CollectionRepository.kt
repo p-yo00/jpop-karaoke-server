@@ -23,6 +23,7 @@ interface CollectionRepository : JpaRepository<CollectionEntity, Long> {
         SELECT cs.song
         FROM CollectionSongEntity cs
         WHERE cs.collection.id = :id
+        ORDER BY cs.orders
     """)
     fun findCollectionSongById(id: Long, pageable: Pageable): Page<SongEntity>
 }

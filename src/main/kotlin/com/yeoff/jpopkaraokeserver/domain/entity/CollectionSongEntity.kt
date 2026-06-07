@@ -10,7 +10,9 @@ class CollectionSongEntity(
     var collection: CollectionEntity? = null,
 
     @ManyToOne
-    var song: SongEntity? = null
+    var song: SongEntity? = null,
+
+    var orders: Int? = null,
 ) {
 
     @Id
